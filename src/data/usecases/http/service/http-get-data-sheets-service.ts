@@ -5,7 +5,7 @@ import { ID } from "@/util";
 
 export class HttpGetSheets implements GetDataSheets {
   async get(): GetDataSheets.Result {
-    const spreadsheetId = "1UfeKFjjAu0avPqw_bxhvdOnrVLTHxfmvuErzAxtwUWI";
+    const spreadsheetId = ID.ID_SHEETS;
 
     const auth = new google.auth.GoogleAuth({
       keyFile: "credentials.json",
@@ -18,6 +18,12 @@ export class HttpGetSheets implements GetDataSheets {
       version: "v4",
       auth: client,
     });
+
+    const metadata = await googleSheets.spreadsheets.get({
+      auth,
+      spreadsheetId,
+    });
+    console.log(metadata.data);
 
     const getRows = await googleSheets.spreadsheets.values.get({
       auth,
