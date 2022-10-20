@@ -12,11 +12,11 @@ Criar uma integração entre as plataformas Google Sheets e HubSpot CRM, buscand
 
 <h2>execução do projeto</h2>
 
-`yarn server:dev` para rodar a API.
+`yarn server:dev` para rodar a API.<br/>
 `yarn server:debug` para debugar a API.
 
 <h2>Adicionais</h2>
 
-**Ter o ACCESS_TOKEN HubSpot**
-**Possuir o ID da tabela requerida**
+**Ter o ACCESS_TOKEN HubSpot**<br/>
+**Possuir o ID da tabela requerida**<br/>
 **Possuir URL base da API da HubSpot**
