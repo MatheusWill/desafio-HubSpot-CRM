@@ -8,7 +8,7 @@ export const DICTIONARY = {
         "Ops. Ocorreu um erro em nossos servidores. Tente novamente mais tarde.",
       NOT_FOUND: "{value} não encontrado(a).",
       NONE_WAS_FOUND: "Nenhum {value} foi encontrado.",
-      UNPROCESSABLE: "Não foi possível processar a {value}",
+      UNPROCESSABLE: "Não foi possível processar a requisição",
     },
     DESCRIPTION: {
       INTERNAL_SERVER_ERROR: "Ocorreu um erro em nossos servidores",
