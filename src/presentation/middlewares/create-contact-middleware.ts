@@ -1,4 +1,4 @@
-import { CreateContact } from "@/domain/usecases";
+import { CreateContact, GetDataSheets } from "@/domain/usecases";
 import { Logger } from "@/data/protocols/utils";
 import { Middleware, HttpRequest } from "@/presentation/protocols";
 import {
@@ -12,6 +12,7 @@ import { DICTIONARY } from "@/util";
 export class CreateContactMiddleware implements Middleware {
   constructor(
     private readonly createContact: CreateContact,
+    private readonly getDataSheets: GetDataSheets,
     private readonly logger: Logger
   ) {}
 
@@ -21,9 +22,9 @@ export class CreateContactMiddleware implements Middleware {
     next: Function
   ): Middleware.Result {
     try {
-      const url = httpRequest.body.url;
+      const dataSheets = await this.getDataSheets.get();
 
-      const contacts = await this.createContact.create(url);
+      const contacts = await this.createContact.create(dataSheets.values);
 
       setState({ contacts });
 

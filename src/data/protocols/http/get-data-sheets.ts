@@ -1,11 +1,7 @@
-import { SheetsModel } from "@/domain/models";
-
 export namespace GetSheetsService {
-  export type Params = string;
-
-  export type Result = Promise<SheetsModel>;
+  export type Result = Promise<any>;
 }
 
 export interface GetSheetsService {
-  get(params: GetSheetsService.Params): GetSheetsService.Result;
+  get(): GetSheetsService.Result;
 }

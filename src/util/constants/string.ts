@@ -1,7 +1,7 @@
 export const DICTIONARY = {
   RESPONSE: {
     MESSAGE: {
-      OK: "{value} com sucesso.",
+      OK: "Sucesso.",
       BAD_REQUEST: "Por favor, valide os dados e tente novamente.",
       UNAUTHORIZED: "Você não tem permissão para acessar esse conteúdo.",
       INTERNAL_SERVER_ERROR:

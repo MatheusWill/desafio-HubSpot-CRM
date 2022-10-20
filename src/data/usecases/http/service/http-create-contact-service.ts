@@ -2,23 +2,31 @@ import { CreateContactService, GetSheetsService } from "@/data/protocols/http";
 import { CreateContact } from "@/domain/usecases";
 import { headerListTransaction } from "@/util";
 
-export class HttpCreateContactService implements CreateContact {
+export class HttpCreateContact implements CreateContact {
   constructor(
-    private readonly createContactService: CreateContactService,
-    private readonly getSheetsService: GetSheetsService
+    private readonly createContactService: CreateContactService // private readonly getSheetsService: GetSheetsService
   ) {}
 
-  async create(params: string): CreateContactService.Result {
-    const sheetsData = await this.getSheetsService.get(params);
+  async create(
+    params: CreateContactService.Params
+  ): CreateContactService.Result {
+    const data = <any>params;
 
-    const contacts = headerListTransaction.map((value) => ({
-      key: value.key,
-      header: value.name,
-    }));
+    data.shift();
 
-    if (!contacts) throw new Error("CONTACTS_ERROR.");
+    const formateContacts = data.map((value: any) => {
+      return {
+        properties: {
+          company: value[0],
+          firstname: value[1],
+          email: value[2],
+          phone: value[3],
+          website: value[4],
+        },
+      };
+    });
 
-    const result = await this.createContactService.post(sheetsData);
+    const result = await this.createContactService.post(formateContacts);
 
     if (!result) throw new Error("CREATE_ERROR");
 

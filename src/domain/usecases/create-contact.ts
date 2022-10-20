@@ -1,7 +1,7 @@
 import { ContactModel } from "@/domain/models";
 
 export namespace CreateContact {
-  export type Params = string;
+  export type Params = any;
 
   export type Result = Promise<ContactModel | null>;
 }

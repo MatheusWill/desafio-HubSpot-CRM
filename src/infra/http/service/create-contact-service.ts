@@ -2,10 +2,7 @@ import {
   CreateContactService as CreateContactServiceProtocol,
   HttpClient,
 } from "@/data/protocols/http";
-import {
-  convertCamelCaseKeysToSnakeCase,
-  convertSnakeCaseKeysToCamelCase,
-} from "@/util";
+import { convertSnakeCaseKeysToCamelCase, TOKEN, APIS } from "@/util";
 
 export class CreateContactService implements CreateContactServiceProtocol {
   constructor(private readonly httpClient: HttpClient) {}
@@ -14,16 +11,17 @@ export class CreateContactService implements CreateContactServiceProtocol {
     params: CreateContactServiceProtocol.Params
   ): CreateContactServiceProtocol.Result {
     const response = await this.httpClient.request({
-      method: 'POST',
-      url: 'objects/contacts/batch/create',
+      method: "POST",
+      url: "objects/contacts/batch/create",
       headers: {
-        authentication: "",
+        Authorization: `Bearer ${TOKEN.ACCESS_TOKEN_HUBSPOT}`,
       },
-      body: convertCamelCaseKeysToSnakeCase(""),
+      body: {
+        inputs: params,
+      },
     });
+    if (response.statusCode > 300 || !response.body) return null;
 
-    if (response.statusCode !== 200 || !response.body) return null;
-
-    return convertSnakeCaseKeysToCamelCase(response.body);
+    return convertSnakeCaseKeysToCamelCase(response.body.results);
   }
 }
