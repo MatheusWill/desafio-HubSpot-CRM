@@ -22,7 +22,9 @@ export class CreateContactMiddleware implements Middleware {
     next: Function
   ): Middleware.Result {
     try {
-      const dataSheets = await this.getDataSheets.get();
+      const body = httpRequest.body;
+
+      const dataSheets = await this.getDataSheets.get(body);
 
       const contacts = await this.createContact.create(dataSheets.values);
 
@@ -36,6 +38,8 @@ export class CreateContactMiddleware implements Middleware {
           return notFound(DICTIONARY.RESPONSE.MESSAGE.NOT_FOUND);
         case "CREATE_ERROR":
           return unprocessableEntity(DICTIONARY.RESPONSE.MESSAGE.UNPROCESSABLE);
+        case "Unable to parse range":
+          return badRequest(DICTIONARY.RESPONSE.MESSAGE.BAD_REQUEST);
         default:
           return serverError(error);
       }

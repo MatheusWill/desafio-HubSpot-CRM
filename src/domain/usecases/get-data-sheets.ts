@@ -1,7 +1,11 @@
 export namespace GetDataSheets {
+  export type Params = {
+    spreadSheetId: string;
+    sheetName: string;
+  };
   export type Result = Promise<any | null>;
 }
 
 export interface GetDataSheets {
-  get(): GetDataSheets.Result;
+  get(params: GetDataSheets.Params): GetDataSheets.Result;
 }

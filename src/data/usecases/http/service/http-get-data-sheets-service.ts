@@ -1,11 +1,10 @@
-import { GetSheetsService } from "@/data/protocols/http";
 import { GetDataSheets } from "@/domain/usecases";
 import { google } from "googleapis";
-import { ID } from "@/util";
 
 export class HttpGetSheets implements GetDataSheets {
-  async get(): GetDataSheets.Result {
-    const spreadsheetId = ID.ID_SHEETS;
+  async get(params: GetDataSheets.Params): GetDataSheets.Result {
+    const { spreadSheetId, sheetName } = params;
+    const spreadsheetId = spreadSheetId
 
     const auth = new google.auth.GoogleAuth({
       keyFile: "credentials.json",
@@ -19,16 +18,10 @@ export class HttpGetSheets implements GetDataSheets {
       auth: client,
     });
 
-    const metadata = await googleSheets.spreadsheets.get({
-      auth,
-      spreadsheetId,
-    });
-    console.log(metadata.data);
-
     const getRows = await googleSheets.spreadsheets.values.get({
       auth,
       spreadsheetId,
-      range: "contatos",
+      range: sheetName,
     });
 
     return getRows.data;

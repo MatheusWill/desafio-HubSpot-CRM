@@ -1,6 +1,5 @@
 import { CreateContactService, GetSheetsService } from "@/data/protocols/http";
 import { CreateContact } from "@/domain/usecases";
-import { headerListTransaction } from "@/util";
 
 export class HttpCreateContact implements CreateContact {
   constructor(
